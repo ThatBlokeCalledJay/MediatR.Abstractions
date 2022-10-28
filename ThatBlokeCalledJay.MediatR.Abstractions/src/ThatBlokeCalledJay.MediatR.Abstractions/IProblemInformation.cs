@@ -1,6 +1,6 @@
 ﻿namespace ThatBlokeCalledJay.MediatR.Abstractions;
 
-public interface IErrorInformation
+public interface IProblemInformation
 {
     public bool HasError { get; }
 

@@ -1,4 +1,6 @@
-﻿namespace ThatBlokeCalledJay.MediatR.Abstractions;
+﻿using MediatR;
+
+namespace ThatBlokeCalledJay.MediatR.Abstractions;
 
 public abstract class BaseCommand : IRequest<InstructionResult>
 { }

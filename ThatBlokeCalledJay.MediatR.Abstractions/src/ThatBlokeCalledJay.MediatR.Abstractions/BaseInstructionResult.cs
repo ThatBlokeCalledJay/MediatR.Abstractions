@@ -2,7 +2,7 @@
 
 namespace ThatBlokeCalledJay.MediatR.Abstractions;
 
-public abstract class BaseInstructionResult : IErrorInformation
+public abstract class BaseInstructionResult : IProblemInformation
 {
     
     public bool HasError { get; }
