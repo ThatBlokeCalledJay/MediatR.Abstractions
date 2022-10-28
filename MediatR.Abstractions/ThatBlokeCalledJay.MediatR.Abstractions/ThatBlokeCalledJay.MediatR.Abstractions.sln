@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThatBlokeCalledJay.MediatR.Abstractions", "ThatBlokeCalledJay.MediatR.Abstractions\ThatBlokeCalledJay.MediatR.Abstractions.csproj", "{A50E4F7A-A65D-4BE5-A103-B45241C3B15C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A50E4F7A-A65D-4BE5-A103-B45241C3B15C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A50E4F7A-A65D-4BE5-A103-B45241C3B15C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A50E4F7A-A65D-4BE5-A103-B45241C3B15C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A50E4F7A-A65D-4BE5-A103-B45241C3B15C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55E3BCC1-FAAE-494C-80DD-B965DE6C9559}
+	EndGlobalSection
+EndGlobal
