@@ -5,6 +5,7 @@ namespace ThatBlokeCalledJay.MediatR.Abstractions.Tests;
 [TestClass]
 public class BaseRequestHandlerTests
 {
+    private const int ExpectedValue = 10;
     private const string ExpectCode = "E1";
     private const string ExpectMessage = "Aww shucks!";
 
@@ -22,7 +23,7 @@ public class BaseRequestHandlerTests
     {
         public override Task<InstructionResult<int?>> Handle(TestCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(SuccessResult(10));
+            return Task.FromResult(SuccessResult(ExpectedValue));
         }
     }
 
@@ -44,7 +45,7 @@ public class BaseRequestHandlerTests
         var result = handler.Handle(cmd, CancellationToken.None).Result;
 
         result.HasError.ShouldBeFalse();
-        result.Result.ShouldBe(10);
+        result.Result.ShouldBe(ExpectedValue);
         result.ErrorCode.ShouldBeNull();
     }
 
