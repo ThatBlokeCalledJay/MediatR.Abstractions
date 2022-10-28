@@ -14,7 +14,7 @@ public abstract class BaseRequestHandler<TRequest, TResponse> : IRequestHandler<
         return (InstructionResult<TResponse>)Activator.CreateInstance(typeof(InstructionResult<TResponse>), value);
     }
 
-    protected InstructionResult<TResponse> ProblemResult(ErrorCode errorCode)
+    protected InstructionResult<TResponse> ErrorResult(ErrorCode errorCode)
     {
         return (InstructionResult<TResponse>)Activator.CreateInstance(typeof(InstructionResult<TResponse>), errorCode);
     }
@@ -29,7 +29,7 @@ public abstract class BaseRequestHandler<TRequest> : IRequestHandler<TRequest, I
         return InstructionResult.SuccessResult();
     }
 
-    protected InstructionResult ProblemResult(ErrorCode errorCode)
+    protected InstructionResult ErrorResult(ErrorCode errorCode)
     {
         return (InstructionResult)Activator.CreateInstance(typeof(InstructionResult), errorCode);
     }

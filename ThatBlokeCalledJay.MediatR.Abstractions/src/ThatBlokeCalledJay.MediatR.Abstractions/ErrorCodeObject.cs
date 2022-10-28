@@ -10,7 +10,7 @@ public abstract class ErrorCode
 
     public abstract string Code { get; }
 
-    public abstract string ErrorMessage();
+    public abstract string ErrorMessage { get; }
 
     public IReadOnlyCollection<ErrorCodeDetail> ErrorDetails
         => _errorDetails;
@@ -51,7 +51,7 @@ public abstract class ErrorCode
     }
 
     public static implicit operator KeyValuePair<string, string>(ErrorCode errorCode)
-        => new(errorCode.Code, errorCode.ErrorMessage());
+        => new(errorCode.Code, errorCode.ErrorMessage);
 }
 
 public class ErrorCodeDetail
