@@ -53,10 +53,8 @@ stages:
             packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
             includesymbols: true
             includesource: true
-            versioningScheme: 'byPrereleaseNumber'
-            majorVersion: "$(major)"
-            minorVersion: "$(minor)"
-            patchVersion: "$(patch)"
+            versioningScheme: byEnvVar
+            versionEnvVar: PackageRevisionVersion
 
         - task: PublishBuildArtifacts@1
           displayName: Publish Preview Package
@@ -84,12 +82,39 @@ stages:
             publishLocation: Container
 
 
-  - stage: PackageRevision
-    displayName: Package Revision
+  - stage: PushRevision
+    displayName: Publish Revision
     condition: and(succeeded(), eq(variables.isMainBranch, true))
     jobs:
       - deployment:
         environment: revision
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - download: none
+
+              - task: DownloadPipelineArtifact@2
+                displayName: "Download Preview Package"
+                inputs:
+                  source: current
+                  path: '$(System.ArtifactsDirectory)'
+                  artifact: "preview"
+
+              - task: DotNetCoreCLI@2
+                displayName: Push NuGet Package
+                inputs:
+                  command: 'push'
+                  packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;$(Build.ArtifactStagingDirectory)/*.snupkg'
+                  nuGetFeedType: 'internal'
+                  publishVstsFeed: '1a343071-4c92-42ed-8b42-1526a6b90483'
+
+  - stage: PushRelease
+    displayName: Push Release Package
+    condition: and(succeeded(), eq(variables.isMainBranch, true))
+    jobs:
+      - deployment:
+        environment: release
         strategy:
           runOnce:
             deploy:
@@ -104,7 +129,7 @@ stages:
                   artifact: "release"
 
               - task: DotNetCoreCLI@2
-                displayName: Push NuGet Package
+                displayName: Push Release Package
                 inputs:
                   command: 'push'
                   packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;$(Build.ArtifactStagingDirectory)/*.snupkg'
