@@ -37,6 +37,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
+    includesymbols: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'PackageVersion'
 
@@ -45,5 +46,13 @@ steps:
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '1a343071-4c92-42ed-8b42-1526a6b90483'
+
+- task: DotNetCoreCLI@2
+  displayName: Push NuGet Symbols
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.snupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '1a343071-4c92-42ed-8b42-1526a6b90483'
