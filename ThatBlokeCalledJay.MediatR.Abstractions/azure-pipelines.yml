@@ -46,42 +46,71 @@ stages:
             testRunTitle: 'Test'
 
         - task: DotNetCoreCLI@2
-          displayName: Create NuGet Package $(PackageVersion)
+          displayName: Create Preview Package $(PackageVersion)
           inputs:
             outputDir: '$(Build.ArtifactStagingDirectory)/preview'
             command: 'pack'
             packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
             includesymbols: true
+            includesource: true
             versioningScheme: 'byPrereleaseNumber'
             majorVersion: "$(major)"
             minorVersion: "$(minor)"
             patchVersion: "$(patch)"
 
         - task: PublishBuildArtifacts@1
-          displayName: Publish preview packages to artefacts
+          displayName: Publish Preview Package
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)/preview'
             artifactName: preview
             publishLocation: Container
 
-  # - stage: PackageRevision
-  #   displayName: Package Revision
-  #   condition: and(succeeded(), eq(variables.isMainBranch, true))
-  #   jobs:
-  #     - deployment:
-  #       environment: revision
-  #       strategy:
-  #         runOnce:
-  #           deploy:
-  #             steps:
-  #               - task: DotNetCoreCLI@2
-  #                 displayName: Create NuGet Package $(PackageVersion)
-  #                 inputs:
-  #                   command: 'pack'
-  #                   packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
-  #                   includesymbols: true
-  #                   versioningScheme: 'byEnvVar'
-  #                   versionEnvVar: 'PackageVersion'
+        - task: DotNetCoreCLI@2
+          displayName: Build Release Package $(PackageVersion)
+          inputs:
+            command: pack
+            outputDir: '$(Build.ArtifactStagingDirectory)/release'
+            includesymbols: true
+            includesource: true
+            packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
+            versioningScheme: byEnvVar
+            versionEnvVar: PackageVersion
+
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Release Package
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/release'
+            artifactName: release
+            publishLocation: Container
+
+
+  - stage: PackageRevision
+    displayName: Package Revision
+    condition: and(succeeded(), eq(variables.isMainBranch, true))
+    jobs:
+      - deployment:
+        environment: revision
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - download: none
+
+              - task: DownloadPipelineArtifact@2
+                displayName: "Download Release Package"
+                inputs:
+                  source: current
+                  path: '$(System.ArtifactsDirectory)'
+                  artifact: "release"
+
+              - task: DotNetCoreCLI@2
+                displayName: Push NuGet Package
+                inputs:
+                  command: 'push'
+                  packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;$(Build.ArtifactStagingDirectory)/*.snupkg'
+                  nuGetFeedType: 'internal'
+                  publishVstsFeed: '1a343071-4c92-42ed-8b42-1526a6b90483'
+
 
 # steps:
 # - task: NuGetToolInstaller@1
