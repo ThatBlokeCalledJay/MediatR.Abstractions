@@ -82,12 +82,12 @@ stages:
             publishLocation: Container
 
 
-  - stage: PushRevision
-    displayName: Publish Revision
+  - stage: PushPreview
+    displayName: Push Preview Package
     condition: and(succeeded(), eq(variables.isMainBranch, true))
     jobs:
       - deployment:
-        environment: revision
+        environment: preview
         strategy:
           runOnce:
             deploy:
@@ -102,7 +102,7 @@ stages:
                   artifact: "preview"
 
               - task: DotNetCoreCLI@2
-                displayName: Push NuGet Package
+                displayName: Push Preview Package
                 inputs:
                   command: 'push'
                   packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;$(Build.ArtifactStagingDirectory)/*.snupkg'
