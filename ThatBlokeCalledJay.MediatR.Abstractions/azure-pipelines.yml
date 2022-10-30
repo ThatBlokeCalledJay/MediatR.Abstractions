@@ -45,24 +45,43 @@ stages:
             projects: '**/*Tests.csproj'
             testRunTitle: 'Test'
 
-  - stage: PackageRevision
-    displayName: Package Revision
-    condition: and(succeeded(), eq(variables.isMainBranch, true))
-    jobs:
-      - deployment:
-        environment: revision
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - task: DotNetCoreCLI@2
-                  displayName: Create NuGet Package $(PackageVersion)
-                  inputs:
-                    command: 'pack'
-                    packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
-                    includesymbols: true
-                    versioningScheme: 'byEnvVar'
-                    versionEnvVar: 'PackageVersion'
+        - task: DotNetCoreCLI@2
+          displayName: Create NuGet Package $(PackageVersion)
+          inputs:
+            outputDir: '$(Build.ArtifactStagingDirectory)/preview'
+            command: 'pack'
+            packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
+            includesymbols: true
+            versioningScheme: 'byPrereleaseNumber'
+            majorVersion: "$(major)"
+            minorVersion: "$(minor)"
+            patchVersion: "$(patch)"
+
+        - task: PublishBuildArtifacts@1
+          displayName: Publish preview packages to artefacts
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/preview'
+            artifactName: preview
+            publishLocation: Container
+
+  # - stage: PackageRevision
+  #   displayName: Package Revision
+  #   condition: and(succeeded(), eq(variables.isMainBranch, true))
+  #   jobs:
+  #     - deployment:
+  #       environment: revision
+  #       strategy:
+  #         runOnce:
+  #           deploy:
+  #             steps:
+  #               - task: DotNetCoreCLI@2
+  #                 displayName: Create NuGet Package $(PackageVersion)
+  #                 inputs:
+  #                   command: 'pack'
+  #                   packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
+  #                   includesymbols: true
+  #                   versioningScheme: 'byEnvVar'
+  #                   versionEnvVar: 'PackageVersion'
 
 # steps:
 # - task: NuGetToolInstaller@1
