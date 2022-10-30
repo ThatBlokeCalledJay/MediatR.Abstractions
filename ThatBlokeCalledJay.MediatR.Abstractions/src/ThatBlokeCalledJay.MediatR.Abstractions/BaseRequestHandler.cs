@@ -5,32 +5,32 @@ using MediatR;
 
 namespace ThatBlokeCalledJay.MediatR.Abstractions;
 
-public abstract class BaseRequestHandler<TRequest, TResponse> : IRequestHandler<TRequest, InstructionResult<TResponse>> where TRequest : IRequest<InstructionResult<TResponse>>
+public abstract class BaseRequestHandler<TRequest, TResponse> : IRequestHandler<TRequest, RequestResult<TResponse>> where TRequest : IRequest<RequestResult<TResponse>>
 {
-    public abstract Task<InstructionResult<TResponse>> Handle(TRequest request, CancellationToken cancellationToken);
+    public abstract Task<RequestResult<TResponse>> Handle(TRequest request, CancellationToken cancellationToken);
 
-    protected InstructionResult<TResponse> SuccessResult(TResponse value)
+    protected RequestResult<TResponse> SuccessResult(TResponse value)
     {
-        return (InstructionResult<TResponse>)Activator.CreateInstance(typeof(InstructionResult<TResponse>), value);
+        return (RequestResult<TResponse>)Activator.CreateInstance(typeof(RequestResult<TResponse>), value);
     }
 
-    protected InstructionResult<TResponse> ErrorResult(ErrorCode errorCode)
+    protected RequestResult<TResponse> ErrorResult(ErrorCode errorCode)
     {
-        return (InstructionResult<TResponse>)Activator.CreateInstance(typeof(InstructionResult<TResponse>), errorCode);
+        return (RequestResult<TResponse>)Activator.CreateInstance(typeof(RequestResult<TResponse>), errorCode);
     }
 }
 
-public abstract class BaseRequestHandler<TRequest> : IRequestHandler<TRequest, InstructionResult> where TRequest : IRequest<InstructionResult>
+public abstract class BaseRequestHandler<TRequest> : IRequestHandler<TRequest, RequestResult> where TRequest : IRequest<RequestResult>
 {
-    public abstract Task<InstructionResult> Handle(TRequest request, CancellationToken cancellationToken);
+    public abstract Task<RequestResult> Handle(TRequest request, CancellationToken cancellationToken);
 
-    protected InstructionResult SuccessResult()
+    protected RequestResult SuccessResult()
     {
-        return InstructionResult.SuccessResult();
+        return RequestResult.SuccessResult();
     }
 
-    protected InstructionResult ErrorResult(ErrorCode errorCode)
+    protected RequestResult ErrorResult(ErrorCode errorCode)
     {
-        return (InstructionResult)Activator.CreateInstance(typeof(InstructionResult), errorCode);
+        return (RequestResult)Activator.CreateInstance(typeof(RequestResult), errorCode);
     }
 }

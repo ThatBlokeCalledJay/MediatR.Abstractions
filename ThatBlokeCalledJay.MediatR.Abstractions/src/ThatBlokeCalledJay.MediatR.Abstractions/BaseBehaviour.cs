@@ -7,7 +7,7 @@ namespace ThatBlokeCalledJay.MediatR.Abstractions;
 
 public abstract class BaseBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
-    where TResponse : BaseInstructionResult
+    where TResponse : BaseRequestResult
 {
     public abstract Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken);
