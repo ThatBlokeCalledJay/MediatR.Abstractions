@@ -45,7 +45,7 @@ stages:
             projects: '**/*Tests.csproj'
             testRunTitle: 'Test'
 
-  - stage: Package Revision
+  - stage: PackageRevision
     displayName: Package Revision
     condition: and(succeeded(), eq(variables.isMainBranch, true))
     jobs:
