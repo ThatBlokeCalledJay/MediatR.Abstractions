@@ -13,7 +13,7 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
-  displayName: Get Buget
+  displayName: Install NuGet
 
 - task: NuGetCommand@2
   displayName: Restore Packages
@@ -43,10 +43,10 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'PackageVersion'
 
-- task: DotNetCoreCLI@2
-  displayName: Push NuGet Package
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '1a343071-4c92-42ed-8b42-1526a6b90483'
+# - task: DotNetCoreCLI@2
+#   displayName: Push NuGet Package
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+#     nuGetFeedType: 'internal'
+#     publishVstsFeed: '1a343071-4c92-42ed-8b42-1526a6b90483'
