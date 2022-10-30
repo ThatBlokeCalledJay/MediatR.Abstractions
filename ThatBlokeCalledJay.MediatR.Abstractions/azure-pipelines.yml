@@ -21,12 +21,6 @@ stages:
     jobs:
       - job:
         steps:
-        - task: Bash@3
-          displayName: Log pipeline state
-          inputs:
-            targetType: "inline"
-            script: |
-              env | sort
 
         - task: NuGetToolInstaller@1
           displayName: Install NuGet
