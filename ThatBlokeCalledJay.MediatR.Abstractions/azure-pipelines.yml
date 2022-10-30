@@ -27,3 +27,10 @@ steps:
     command: 'test'
     projects: '**/*Tests.csproj'
     testRunTitle: 'Test'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
+    versioningScheme: 'byBuildNumber'
+    includeSymbols: true
