@@ -5,19 +5,21 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{53F9582B-05AD-407B-B34C-64EFC244F81B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThatBlokeCalledJay.MediatR.Abstractions", "src\ThatBlokeCalledJay.MediatR.Abstractions\ThatBlokeCalledJay.MediatR.Abstractions.csproj", "{76F92EB5-5612-4D5D-B624-ADE4B5EC19FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThatBlokeCalledJay.MediatR.Abstractions", "src\ThatBlokeCalledJay.MediatR.Abstractions\ThatBlokeCalledJay.MediatR.Abstractions.csproj", "{76F92EB5-5612-4D5D-B624-ADE4B5EC19FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EC62FEC8-FECD-41FF-B56F-6775FD5465F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThatBlokeCalledJay.MediatR.Abstractions.Tests", "tests\ThatBlokeCalledJay.MediatR.Abstractions.Tests\ThatBlokeCalledJay.MediatR.Abstractions.Tests.csproj", "{855C2285-C958-43E2-A4ED-D835FBB8B3CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThatBlokeCalledJay.MediatR.Abstractions.Tests", "tests\ThatBlokeCalledJay.MediatR.Abstractions.Tests\ThatBlokeCalledJay.MediatR.Abstractions.Tests.csproj", "{855C2285-C958-43E2-A4ED-D835FBB8B3CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipeline", "pipeline", "{9E0D4960-0AE4-49AA-A7C1-E151E2D87A9E}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{76F92EB5-5612-4D5D-B624-ADE4B5EC19FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -29,8 +31,14 @@ Global
 		{855C2285-C958-43E2-A4ED-D835FBB8B3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{855C2285-C958-43E2-A4ED-D835FBB8B3CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{76F92EB5-5612-4D5D-B624-ADE4B5EC19FF} = {53F9582B-05AD-407B-B34C-64EFC244F81B}
 		{855C2285-C958-43E2-A4ED-D835FBB8B3CA} = {EC62FEC8-FECD-41FF-B56F-6775FD5465F9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9F46CF4-1ED0-4006-839F-09737E417AEA}
 	EndGlobalSection
 EndGlobal
