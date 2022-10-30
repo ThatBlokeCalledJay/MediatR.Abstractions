@@ -10,6 +10,8 @@
 		<Description>Useful MadiatR abstractions to assist with error handling and responses.</Description>
 		<RepositoryUrl>https://github.com/ThatBlokeCalledJay/MediatR.Abstractions</RepositoryUrl>
 		<PackageTags>MediatR Errors</PackageTags>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
