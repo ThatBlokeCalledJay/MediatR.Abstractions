@@ -13,27 +13,40 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+  displayName: Get Buget
 
 - task: NuGetCommand@2
+  displayName: Restore Packages
   inputs:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: Build Solution
   inputs:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: Run Tests
   inputs:
     command: 'test'
     projects: '**/*Tests.csproj'
     testRunTitle: 'Test'
 
 - task: DotNetCoreCLI@2
+  displayName: Create NuGet Package $(PackageVersion)
   inputs:
     command: 'pack'
     packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
     includesymbols: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'PackageVersion'
+
+- task: DotNetCoreCLI@2
+  displayName: Push NuGet Package
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '1a343071-4c92-42ed-8b42-1526a6b90483'
