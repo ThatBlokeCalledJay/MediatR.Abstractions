@@ -1,20 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>MediatR Abstractions</Title>
-    <Authors>Jay Clark</Authors>
-    <Company>ThatBlokeCalledJay</Company>
-    <Description>Useful MadiatR abstractions to assist with error handlingg and responses.</Description>
-    <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ThatBlokeCalledJay/MediatR.Abstractions</RepositoryUrl>
-    <PackageTags>MediatR Errors</PackageTags>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<Title>MediatR Abstractions</Title>
+		<Authors>Jay Clark</Authors>
+		<Company>ThatBlokeCalledJay</Company>
+		<Description>Useful MadiatR abstractions to assist with error handling and responses.</Description>
+		<RepositoryUrl>https://github.com/ThatBlokeCalledJay/MediatR.Abstractions</RepositoryUrl>
+		<PackageTags>MediatR Errors</PackageTags>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MediatR" Version="11.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="11.0.0" />
+	</ItemGroup>
 
 </Project>
