@@ -18,6 +18,7 @@ variables:
 
 stages:
   - stage: Build
+    displayName: Build and Test
     jobs:
       - job:
         steps:
@@ -43,6 +44,25 @@ stages:
             command: 'test'
             projects: '**/*Tests.csproj'
             testRunTitle: 'Test'
+
+  - stage: Package Revision
+    displayName: Package Revision
+    condition: and(succeeded(), eq(variables.isMainBranch, true))
+    jobs:
+      - deployment:
+        environment: revision
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DotNetCoreCLI@2
+                  displayName: Create NuGet Package $(PackageVersion)
+                  inputs:
+                    command: 'pack'
+                    packagesToPack: '**/ThatBlokeCalledJay.MediatR.Abstractions.csproj'
+                    includesymbols: true
+                    versioningScheme: 'byEnvVar'
+                    versionEnvVar: 'PackageVersion'
 
 # steps:
 # - task: NuGetToolInstaller@1
