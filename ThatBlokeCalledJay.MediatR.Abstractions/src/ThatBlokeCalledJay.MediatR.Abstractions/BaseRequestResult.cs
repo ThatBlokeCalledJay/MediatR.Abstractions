@@ -2,16 +2,16 @@
 
 namespace ThatBlokeCalledJay.MediatR.Abstractions;
 
-public abstract class BaseInstructionResult : IProblemInformation
+public abstract class BaseRequestResult : IErrorInformation
 {
     
     public bool HasError { get; }
     public ErrorCode ErrorCode { get; }
     
-    public BaseInstructionResult()
+    public BaseRequestResult()
     { }
 
-    public BaseInstructionResult(ErrorCode errorCode)
+    public BaseRequestResult(ErrorCode errorCode)
     {
         HasError = true;
         ErrorCode = errorCode ?? throw new ArgumentNullException(nameof(errorCode));
