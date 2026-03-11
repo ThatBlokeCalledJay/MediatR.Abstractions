@@ -10,14 +10,10 @@ public abstract class BaseRequestHandler<TRequest, TResponse> : IRequestHandler<
     public abstract Task<RequestResult<TResponse>> Handle(TRequest request, CancellationToken cancellationToken);
 
     protected RequestResult<TResponse> SuccessResult(TResponse value)
-    {
-        return (RequestResult<TResponse>)Activator.CreateInstance(typeof(RequestResult<TResponse>), value);
-    }
+        => RequestResult<TResponse>.SuccessResult(value);
 
     protected RequestResult<TResponse> ErrorResult(ErrorCode errorCode)
-    {
-        return (RequestResult<TResponse>)Activator.CreateInstance(typeof(RequestResult<TResponse>), errorCode);
-    }
+        => RequestResult<TResponse>.ErrorResult(errorCode);
 }
 
 public abstract class BaseRequestHandler<TRequest> : IRequestHandler<TRequest, RequestResult> where TRequest : IRequest<RequestResult>
@@ -25,12 +21,8 @@ public abstract class BaseRequestHandler<TRequest> : IRequestHandler<TRequest, R
     public abstract Task<RequestResult> Handle(TRequest request, CancellationToken cancellationToken);
 
     protected RequestResult SuccessResult()
-    {
-        return RequestResult.SuccessResult();
-    }
+        => RequestResult.SuccessResult();
 
     protected RequestResult ErrorResult(ErrorCode errorCode)
-    {
-        return (RequestResult)Activator.CreateInstance(typeof(RequestResult), errorCode);
-    }
+        => RequestResult.ErrorResult(errorCode);
 }

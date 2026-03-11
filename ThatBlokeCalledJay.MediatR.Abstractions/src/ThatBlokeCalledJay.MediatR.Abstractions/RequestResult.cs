@@ -9,7 +9,7 @@ public class RequestResult : BaseRequestResult
 
     public RequestResult(ErrorCode errorCode) : base(errorCode)
     { }
-    
+
     public void Switch(Action<ErrorCode> onError)
     {
         if (this.HasError)
@@ -20,6 +20,8 @@ public class RequestResult : BaseRequestResult
         => onError(this);
 
     public static RequestResult SuccessResult() => new RequestResult();
+
+    public static RequestResult ErrorResult(ErrorCode errorCode) => new RequestResult(errorCode);
 }
 
 public class RequestResult<TValue> : BaseRequestResult
@@ -36,7 +38,7 @@ public class RequestResult<TValue> : BaseRequestResult
 
     public RequestResult(ErrorCode errorCode) : base(errorCode)
     { }
-    
+
     public void Switch(Action<TValue> onValue, Action<IErrorInformation> onError)
     {
         if (this.HasError)
@@ -51,4 +53,6 @@ public class RequestResult<TValue> : BaseRequestResult
     public static implicit operator RequestResult<TValue>(TValue result) => new(result);
 
     public static RequestResult<TValue> SuccessResult(TValue result) => new(result);
+
+    public static RequestResult<TValue> ErrorResult(ErrorCode errorCode) => new(errorCode);
 }
